@@ -1,23 +1,30 @@
 # lipi
 
-Small on-device English speech recognition: a streaming CTC model (about 20M parameters, 4-bit weights, 8-bit activations) built for CPU-only runtimes.
+Small, fast, on-device English speech recognition. Streaming-capable, 4-bit weights, 13.6 MB, built for CPU-only runtimes.
 
-## Status
-In development. Weights are not released yet; they will be published on Hugging Face under Apache-2.0.
-
-## Benchmarks (intermediate checkpoint)
-Word error rate (%), lower is better. Greedy CTC decoding, no language model, English only.
-Weights are simulated at 4 bits (group size 128) and activations at 8 bits.
-"Streaming" means 640 ms chunks with a 2-chunk look-back; "full context" sees the whole utterance.
+## Results
+Word error rate (%), lower is better. Greedy decoding, no language model, English only. 4-bit weights with 8-bit activations.
+"Streaming" uses 640 ms chunks; "full context" sees the whole utterance.
 
 | Benchmark (test set) | Full context | Streaming (640 ms) |
 |---|---|---|
-| LibriSpeech test-clean | 5.00 | 6.52 |
-| LibriSpeech test-other | 12.73 | 16.50 |
-| Earnings-22 | 24.86 | 33.40 |
-| Common Voice (English) | 32.33 | 39.96 |
+| LibriSpeech test-clean | 5.03 | 6.49 |
+| LibriSpeech test-other | 12.78 | 16.47 |
+| Earnings-22 | 24.74 | 33.39 |
+| Common Voice (English) | 32.32 | 40.02 |
 
-Test data: the `hf-audio/open-asr-leaderboard` test configs (`librispeech`, `earnings22`, `common_voice`).
-Scoring: our own scorer with the Whisper English text normaliser applied to the references; Common Voice audio (48 kHz) is resampled to 16 kHz.
-This is not the leaderboard's own evaluation harness, so numbers may differ slightly from an official run.
-This is an intermediate checkpoint, not the final model. Common Voice (accented, noisy read speech) is a known weak spot.
+Test data: the `hf-audio/open-asr-leaderboard` test configurations (`librispeech`, `earnings22`, `common_voice`).
+Scored with our own scorer and the Whisper English text normaliser on the references; Common Voice audio is resampled from 48 kHz to 16 kHz.
+This is not the leaderboard's own harness, so an official run may differ slightly. Numbers were measured from the exported 4-bit weights.
+Known weak spots: accented and noisy speech (Common Voice), and long-form business speech (Earnings-22).
+
+## Files
+- `lipi-w4.lipi` the 4-bit model (13.6 MB)
+- `tokenizer.model` SentencePiece tokenizer (1024 pieces)
+
+## License
+Apache-2.0 for the model weights and these documents.
+
+## Training data
+Trained on public English speech corpora, including LibriSpeech, GigaSpeech, SPGISpeech, VoxPopuli, AMI and TED-LIUM.
+Some of these corpora are distributed under research-only or non-commercial terms. Check the upstream licences before commercial use.
