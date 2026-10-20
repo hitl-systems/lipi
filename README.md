@@ -2,6 +2,8 @@
 
 Small, fast, on-device English speech recognition. Streaming-capable, 4-bit weights, 13.6 MB, built for CPU-only runtimes.
 
+Weights: https://huggingface.co/hitl-systems/lipi
+
 ## Results
 Word error rate (%), lower is better. Greedy decoding, no language model, English only. 4-bit weights with 8-bit activations.
 "Streaming" uses 640 ms chunks; "full context" sees the whole utterance.
