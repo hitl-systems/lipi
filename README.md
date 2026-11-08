@@ -4,6 +4,8 @@ Small, fast, on-device English speech recognition. Streaming-capable, 4-bit weig
 
 Weights: https://huggingface.co/hitl-systems/lipi
 
+For English plus Hinglish (Hindi and English mixed), see https://huggingface.co/hitl-systems/lipi-hn
+
 ## Results
 Word error rate (%), lower is better. Greedy decoding, no language model, full context, English only.
 Measured from the exported 4-bit weights with 8-bit activations. Test data: the `hf-audio/open-asr-leaderboard` test configurations, using the cleaned versions where the leaderboard provides them.
@@ -32,10 +34,3 @@ Known weak spots: accented and noisy speech (Common Voice) and phone-quality bus
 
 ## License
 Creative Commons Attribution-NonCommercial-ShareAlike 4.0 (CC BY-NC-SA 4.0) for the model weights and these documents: attribution required, non-commercial use only, and adaptations must be shared under the same licence. Full text in `LICENSE`.
-
-## Training data and attribution
-Trained on public English speech corpora: LibriSpeech, GigaSpeech, SPGISpeech, VoxPopuli, AMI and TED-LIUM, plus pseudo-labelled data:
-- YODAS-Granary English audio (CC-BY-3.0), transcribed with NVIDIA Parakeet-TDT 0.6B v2 (CC-BY-4.0) and kept where the two transcripts agree;
-- Earnings-22 earnings-call audio (CC-BY-4.0), excluding every call used in the evaluation sets, transcribed with the same teacher.
-
-Some of the corpora above are distributed under research-only or non-commercial terms (GigaSpeech, SPGISpeech, TED-LIUM), which is why the model is released for non-commercial use only.
